@@ -4,7 +4,13 @@ import Preferences
 final class AdvancedPreferenceViewController: NSViewController, PreferencePane {
 	let preferencePaneIdentifier = Preferences.PaneIdentifier.advanced
 	let preferencePaneTitle = "Advanced"
-	let toolbarItemIcon = NSImage(systemSymbolName: "gearshape.2", accessibilityDescription: "Advanced preferences")!
+	let toolbarItemIcon: NSImage = {
+		if #available(OSX 11.0, *) {
+			return NSImage(systemSymbolName: "gearshape.2", accessibilityDescription: "Advanced preferences")!
+		} else {
+			return NSImage(named: NSImage.advancedName)!
+		}
+	}()
 
 	@IBOutlet private var fontLabel: NSTextField!
 	private var font = NSFont.systemFont(ofSize: 14)
